@@ -15,19 +15,20 @@ Mapping file from Internet Archive into Wordpress Media Library.
 
 == Description ==
 
-Mapping file(s) from Internet Archive into Wordpress Media Library.
+Mapping file(s) from Internet Archive (archive.org) into Wordpress Media Library.
 
 Supported File Types:
 * Any file for general addition
-* [FUTURE (v1.2)] JPG/PNG/GIF files for picture meta-data
+* JPG/PNG/GIF files for picture meta-data
 * [FUTURE (v1.1)] MP3 files for audio meta-data
 * [FUTURE] More types to be added in due-course.
 
 Features:
 * Mapping file(s) from Internet Archive into WordPress Media Library.
-* [FUTURE (v1.1)] Determination of MIME type from file extension.
+* Determination of MIME type from file extension (for images and mp3 only).
+* Real meta-data added for JPG/PNG/GIF files.
 * [FUTURE (v1.1+ as above)] Addition of real meta-data to Wordpress for file where available, or sensible generic meta-data where not.
-* [FUTURE (v1.1+ as above)] Option to manually edit the meta-data.
+* [FUTURE (v1.2+ as above)] Option to manually edit the meta-data.
 
 Required:
 * PHP 5.3.0
