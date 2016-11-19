@@ -53,8 +53,7 @@ function iaml_adminScript()
     wp_enqueue_script('jquery-ui-tabs');
     wp_enqueue_script('iaml-javascript',  plugin_dir_url(__FILE__)."js/iaml.js");
     wp_enqueue_style ('iaml-css', plugin_dir_url(__FILE__).'css/iaml.css');
-    wp_enqueue_style ('jquery-ui-css', plugin_dir_url(__FILE__).'css/jquery-ui.css');
-    //wp_enqueue_style ('jquery-ui-css-admin', plugin_dir_url( __FILE__ ).'css/jquery-ui-classic.css' );
+    wp_enqueue_style ('jquery-ui-css-admin', plugin_dir_url( __FILE__ ).'css/jquery-ui-classic.css' );
 }
 
 
