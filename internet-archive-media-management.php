@@ -3,11 +3,10 @@ $currentPath = plugin_dir_url(__FILE__);
 $mappingFolder = get_option('iaml_prefix');
 ?>
 
-<div id="info" style="display: none"></div>
+<div id='info" style='display: none'></div>
 
-<!--
-Define Tabs
--->
+<!-- Define Tabs -->
+
 <div id="tabs">
     
     <ul>
@@ -36,12 +35,7 @@ Define Tabs
             <li>[FUTURE] More types to be added in due-course.</li>
         </ul>
         
-        <h5>Features:</h5>Features:
-* Mapping file(s) from Internet Archive into WordPress Media Library.
-* Determination of MIME type from file extension (for images and mp3 only).
-* Real meta-data added for JPG/PNG/GIF files.
-* [FUTURE (v1.1+ as above)] Addition of real meta-data to Wordpress for file where available, or sensible generic meta-data where not.
-* [FUTURE (v1.2+ as above)] Option to manually edit the meta-data.
+        <h5>Features:</h5>
         <ul>
             <li>Mapping file(s) from Internet Archive into WordPress Media Library.</li>
             <li> Determination of MIME type from file extension (for images and mp3 only).</li>
@@ -74,31 +68,31 @@ Define Tabs
         
     </div> <!-- end of about tab -->
 
-    <div id="map-file">
+    <div id='map-file'>
         
-        <form id="frmMappingFile" name="frmMappingFile">
+        <form id='frmMappingFile' name='frmMappingFile'>
             <p>Plesae Note: This currently only works for jpg, png, gif and mp3 files reliably.  All other file types are added as generic attachments with no mime type or meta-data, future versions will add more supported file types.</p>
-            <p><label for="mappingFileName">File Name: </label><br>
-                <?php echo $mappingFolder ?>/<input type="text" name="mappingFileName" title="Complete the URL (eg: item/file.ext)" size="40" id="mappingFileName"><br>
-            <label for="mappingFileDescription">File Description: </label>
-            <input type="text" name="mappingFileDescription" title="eg: file description" size="80" id="mappingFileDescription"><br>
-            <?php $mappingFileNonce = wp_create_nonce( "mapping-file-nonce" ); ?>
-            <input type="hidden" name="mapping-file-nonce" id="mapping-file-nonce" value="<?php echo $mappingFileNonce ?>">
-            <button type="submit" id="btnSaveMappingFile"><?php _e('Save')?>
-                <img src="<?php echo $currentPath ?>images/preloader-flat.gif" id="imgLoadingButton" style="display: none;">
+            <p><label for='mappingFileName'>File Name: </label><br>
+                <?php echo $mappingFolder ?>/<input type='text' name='mappingFileName' title='Complete the URL (eg: item/file.ext)' size='40' id='mappingFileName'><br>
+            <label for='mappingFileDescription'>File Description: </label>
+            <input type='text' name='mappingFileDescription' title='eg: file description' size='80' id='mappingFileDescription'><br>
+            <?php $mappingFileNonce = wp_create_nonce('mapping-file-nonce'); ?>
+            <input type='hidden' name='mapping-file-nonce' id='mapping-file-nonce' value='<?php echo $mappingFileNonce ?>'>
+            <button type='submit' id='btnSaveMappingFile'><?php _e('Save')?>
+                <img src='<?php echo $currentPath ?>images/preloader-flat.gif' id='imgLoadingButton' style='display: none;'>
             </button></p>
         </form>
         
     </div> <!-- end of map-file tab -->
 
-    <div id="updateURLprefix">
-        <form id="frmMappingFolder" name="frmMappingFolder">
-            <p><label for="mappingFolder">Internet Archive URL base: </label>
-                <input type="text" id="mappingFolder" name="mappingFolder" value="<?php echo $mappingFolder ?>" title="eg: https://archive.org/download" size="40"> (do not include a trailing slash)<br>
+    <div id='updateURLprefix'>
+        <form id='frmMappingFolder' name='frmMappingFolder'>
+            <p><label for='mappingFolder'>Internet Archive URL base: </label>
+                <input type='text' id='mappingFolder' name='mappingFolder' value='<?php echo $mappingFolder ?>' title='eg: https://archive.org/download' size='40'> (do not include a trailing slash)<br>
             <?php $mappingFolderNonce = wp_create_nonce( "mapping-folder-nonce" );?>
-                <input type="hidden" name="mapping-folder-nonce" id="mapping-folder-nonce" value="<?php echo $mappingFolderNonce ?>" ><br>
-            <button id="btnSaveMappingFolder"><?php _e('Save') ?>
-                <img src="<?php echo $currentPath ?>images/preloader-flat.gif" id="imgFolderButton" style="display: none;">
+                <input type='hidden' name='mapping-folder-nonce' id='mapping-folder-nonce' value='<?php echo $mappingFolderNonce ?>' ><br>
+            <button id='btnSaveMappingFolder'><?php _e('Save') ?>
+                <img src='<?php echo $currentPath ?>images/preloader-flat.gif' id='imgFolderButton' style='display: none;'>
             </button></p>
         </form>
     </div> <!-- end of updateURLprefix tab -->

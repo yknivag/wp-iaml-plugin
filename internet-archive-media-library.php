@@ -29,13 +29,13 @@
  */
 
 
-require_once "includes/class-IAMLWeb.php";
+require_once ('includes/class-IAMLWeb.php');
 
 function iaml_install() {
     $defaultPrefix = 'https://archive.org/download';
     update_option('iaml_prefix', $defaultPrefix);
 }
-register_activation_hook( __FILE__, 'iaml_install' );
+register_activation_hook( __FILE__, 'iaml_install');
 
 add_filter('wp_get_attachment_url', 'iaml_getMediaURLFile');
 function iaml_getMediaURLFile($url)
@@ -57,20 +57,25 @@ function iaml_adminScript()
     wp_enqueue_script('jquery-ui-dialog');
     wp_enqueue_script('jquery-ui-tooltip');
     wp_enqueue_script('jquery-ui-tabs');
-    wp_enqueue_script('iaml-javascript',  plugin_dir_url(__FILE__)."js/iaml.js");
-    wp_enqueue_style ('iaml-css', plugin_dir_url(__FILE__).'css/iaml.css');
-    wp_enqueue_style ('jquery-ui-css-admin', plugin_dir_url( __FILE__ ).'css/jquery-ui-classic.css' );
+    wp_enqueue_script('iaml-javascript',  plugin_dir_url(__FILE__) . 'js/iaml.js');
+    wp_enqueue_style ('iaml-css', plugin_dir_url(__FILE__) . 'css/iaml.css');
+    wp_enqueue_style ('jquery-ui-css-admin', plugin_dir_url( __FILE__ ) . 'css/jquery-ui-classic.css' );
 }
 
 
 function iaml_media_actions()
 {
     if(!is_admin()) 
-        wp_die("You are not authorised to view this page.");
+        wp_die('You are not authorised to view this page.');
     else 
     {
-        add_media_page("Internet Archive Media Library", "Internet Archive Media Library", 1, "internet-archive-media-library-management",
-            "iaml_media");
+        add_media_page(
+            'Internet Archive Media Library',
+            'Internet Archive Media Library',
+            1,
+            'internet-archive-media-library-management',
+            'iaml_media'
+        );
         add_action('admin_enqueue_scripts', 'iaml_adminScript');
 
     }
@@ -78,7 +83,7 @@ function iaml_media_actions()
 
 function iaml_media()
 {
-    include "internet-archive-media-management.php";
+    include ('internet-archive-media-management.php');
 }
 
 add_action('admin_menu', 'iaml_media_actions');

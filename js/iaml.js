@@ -27,10 +27,10 @@ jQuery(document).ready(function($)
 
         // Declare data
         var data = {
-            action: 'iaml_action',
-            mappingFileName: $("#mappingFileName").val(),
-            mappingFileDescription: $("#mappingFileDescription").val(),
-            mappingFileNonce: $("#mapping-file-nonce").val()
+            action:                 'iaml_action',
+            mappingFileName:        $('#mappingFileName').val(),
+            mappingFileDescription: $('#mappingFileDescription').val(),
+            mappingFileNonce:       $('#mapping-file-nonce').val()
         };
 
         $.post(ajaxurl, data, function(msg)
@@ -54,9 +54,9 @@ jQuery(document).ready(function($)
 
         // Declare data
         var data = {
-            action: 'iaml_action',
-            mappingFolder: $("#mappingFolder").val(),
-            mappingFolderNonce: $("#mapping-folder-nonce").val()
+            action:             'iaml_action',
+            mappingFolder:      $('#mappingFolder').val(),
+            mappingFolderNonce: $('#mapping-folder-nonce').val()
         };
 
         $.post(ajaxurl, data, function(msg)
@@ -75,10 +75,10 @@ jQuery(document).ready(function($)
     /*
      * Define jquery tooltips function
      * */
-    var tooltips = $( "[title]" ).tooltip({
+    var tooltips = $( '[title]' ).tooltip({
         position: {
-            my: "left top",
-            at: "right+5 top-5"
+            my: 'left top',
+            at: 'right+5 top-5'
         }
     }); // end of tooltips
 
