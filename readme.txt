@@ -1,6 +1,6 @@
 === Internet Archive Media Library ===
 Contributors: Gavin Smalley
-Donate link: http://www.gavinsmalley.co.uk/
+Donate link: https://github.com/yknivag/wp-iaml-plugin
 Tags: internet archive, archive.org, internet archive mapping, archive.org mapping, internet archive media library, archive.org media library
 Requires at least: 3.5
 Tested up to: 4.6
@@ -37,6 +37,7 @@ How it works:
 2. Set up IA prefix in Admin >> Media >> Internet Archive Media Library >> URL Prefix.
 3. Add file name in Wordpress Admin >> Media >> Internet Archive Media Library >> Map File.
 4. Go to Wordpress Admin >> Media >> Library. Now you can see your Internet Archive file in preview.
+5. Once added you can edit meta-data and/or delete media from the Media Library in the normal way.
 
 == Installation ==
 

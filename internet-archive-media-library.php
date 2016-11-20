@@ -1,13 +1,13 @@
 <?php
 /*
     Plugin Name: Internet Archive Media Library
-    Plugin URI: 
+    Plugin URI: https://github.com/yknivag/wp-iaml-plugin
     Description: Mapping file from Internet Archive (archive.org) into Wordpress Media. [Based on Google Drive Media Library by Felix Wei]
     Author: Gavin Smalley
     Version: 1.0
     Author URI: http://www.gavinsmalley.co.uk/
-    License: GNU General Public License v2.0 or later
-    License URI: http://www.opensource.org/licenses/gpl-license.php
+    License: GNU General Public License v3.0 or later
+    License URI: http://www.gnu.org/licenses/gpl-3.0.html
 */
 
 /**
@@ -29,81 +29,105 @@
  */
 
 
-require_once "includes/class-IAMLWeb.php";
+require_once( 'includes/class-IAMLWeb.php' );
 
-function iaml_install() {
+// BEGIN HOUSE-KEEPING //
+
+function iaml_activate() {
     $defaultPrefix = 'https://archive.org/download';
-    update_option('iaml_prefix', $defaultPrefix);
+    add_option( 'iaml_prefix', $defaultPrefix );
 }
-register_activation_hook( __FILE__, 'iaml_install' );
+register_activation_hook( __FILE__, 'iaml_activate' );
 
-add_filter('wp_get_attachment_url', 'iaml_getMediaURLFile');
-function iaml_getMediaURLFile($url)
-{
-    $prefix = get_option('iaml_prefix');
+function iaml_deactivate() {
+    // There is nothing to do here, the option is removed at plugin-delete as per
+    // Wordpress coding guidelines.  
+  
+    // We don't touch uploaded media because (whilst it will no longer work when the plugin is
+    // deactivated) it will work again if we leave it and the plugin is re-activated, and
+    // the user may not be expecting their media library to disapear!
+}
+register_deactivation_hook( __FILE__, 'iaml_deactivate' );
+
+function iaml_delete() {
+    // Remove option
+    
+    delete_option( 'iaml_prefix' );
+
+    // Again, we don't touch uploaded media because (whilst it will no longer work when the plugin is
+    // deactivated/deleted) it will work again if we leave it and the plugin is re-installed, and
+    // the user may not be expecting their media library to disapear!
+}
+register_uninstall_hook( __FILE__, 'iaml_delete' );
+
+// END HOUSE-KEEPING //
+
+add_filter( 'wp_get_attachment_url', 'iaml_getMediaURLFile' );
+
+function iaml_getMediaURLFile( $url ) {
+    $prefix = get_option( 'iaml_prefix' );
     $directory = wp_upload_dir();
     
-    if(strpos($url, 'IAML-Mapping/'))
-    	$url = str_replace($directory['baseurl'] . '/IAML-Mapping/', $prefix . '/', $url);
+    if( strpos( $url, 'IAML-Mapping/' ) )
+    	$url = str_replace( $directory['baseurl'] . '/IAML-Mapping/', $prefix . '/', $url );
 
     return $url;
 }
 
 
-function iaml_adminScript()
-{
-    wp_enqueue_script('jquery');
-    wp_enqueue_script('jquery-ui-core');
-    wp_enqueue_script('jquery-ui-dialog');
-    wp_enqueue_script('jquery-ui-tooltip');
-    wp_enqueue_script('jquery-ui-tabs');
-    wp_enqueue_script('iaml-javascript',  plugin_dir_url(__FILE__)."js/iaml.js");
-    wp_enqueue_style ('iaml-css', plugin_dir_url(__FILE__).'css/iaml.css');
-    wp_enqueue_style ('jquery-ui-css-admin', plugin_dir_url( __FILE__ ).'css/jquery-ui-classic.css' );
+function iaml_adminScript() {
+    wp_enqueue_script( 'jquery' );
+    wp_enqueue_script( 'jquery-ui-core' );
+    wp_enqueue_script( 'jquery-ui-dialog' );
+    wp_enqueue_script( 'jquery-ui-tooltip' );
+    wp_enqueue_script( 'jquery-ui-tabs' );
+    wp_enqueue_script( 'iaml-javascript',  plugin_dir_url( __FILE__ ) . 'js/iaml.js' );
+    wp_enqueue_style ( 'iaml-css', plugin_dir_url( __FILE__ ) . 'css/iaml.css' );
+    wp_enqueue_style ( 'jquery-ui-css-admin', plugin_dir_url( __FILE__ ) . 'css/jquery-ui-classic.css' );
 }
 
 
-function iaml_media_actions()
-{
-    if(!is_admin()) 
-        wp_die("You are not authorised to view this page.");
-    else 
-    {
-        add_media_page("Internet Archive Media Library", "Internet Archive Media Library", 1, "internet-archive-media-library-management",
-            "iaml_media");
+function iaml_media_actions() {
+    if( ! is_admin() ) {
+        wp_die( 'You are not authorised to view this page.' );
+    } else {
+        //add_media_page( $page_title, $menu_title, $capability, $menu_slug, $function);
+        add_media_page(
+            'Internet Archive Media Library',
+            'Internet Archive Media Library',
+            'upload_files',
+            'internet-archive-media-library-management',
+            'iaml_media'
+        );
         add_action('admin_enqueue_scripts', 'iaml_adminScript');
 
     }
 }
 
-function iaml_media()
-{
-    include "internet-archive-media-management.php";
+function iaml_media() {
+    include ( 'internet-archive-media-management.php' );
 }
 
-add_action('admin_menu', 'iaml_media_actions');
+add_action( 'admin_menu', 'iaml_media_actions' );
 
 
-function iaml_ajax_post()
-{
-    if(isset($_POST['mappingFolderNonce']))
-    {
+function iaml_ajax_post() {
+    if( isset( $_POST['mappingFolderNonce'] ) ) {
         $IAMLWebService = new IAMLWeb();
-        $message = $IAMLWebService->iaml_saveMappingFolder($_POST['mappingFolder'], 
-            $_POST['mappingFolderNonce'], 'mapping-folder-nonce');
+        $message = $IAMLWebService->iaml_saveMappingFolder( $_POST['mappingFolder'], 
+            $_POST['mappingFolderNonce'], 'mapping-folder-nonce' );
         echo $message;
     }
 
-    if(isset($_POST['mappingFileNonce']))
-    {
+    if( isset( $_POST['mappingFileNonce'] ) ) {
         $IAMLWebService = new IAMLWeb();
-        $folder = get_option('iaml_prefix');
-        $message = $IAMLWebService->iaml_saveMappingFile($_POST['mappingFileName'], $folder, $_POST['mappingFileDescription'],
-            $_POST['mappingFileNonce'], 'mapping-file-nonce');
+        $folder = get_option( 'iaml_prefix' );
+        $message = $IAMLWebService->iaml_saveMappingFile( $_POST['mappingFileName'], $folder, $_POST['mappingFileDescription'],
+            $_POST['mappingFileNonce'], 'mapping-file-nonce' );
         echo $message;
     }
 
     die();
 }
 
-add_action('wp_ajax_iaml_action', 'iaml_ajax_post');
+add_action( 'wp_ajax_iaml_action', 'iaml_ajax_post' );
