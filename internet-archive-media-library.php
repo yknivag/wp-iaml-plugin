@@ -31,13 +31,39 @@
 
 require_once( 'includes/class-IAMLWeb.php' );
 
-function iaml_install() {
+// BEGIN HOUSE-KEEPING //
+
+function iaml_activate() {
     $defaultPrefix = 'https://archive.org/download';
-    update_option( 'iaml_prefix', $defaultPrefix );
+    update_option( 'iaml_activate', $defaultPrefix );
 }
 register_activation_hook( __FILE__, 'iaml_install' );
 
+function iaml_deactivate() {
+    // There is nothing to do here, the option is removed at plugin-delete as per
+    // Wordpress coding guidelines.  
+  
+    // We don't touch uploaded media because (whilst it will no longer work when the plugin is
+    // deactivated) it will work again if we leave it and the plugin is re-activated, and
+    // the user may not be expecting their media library to disapear!
+}
+register_deactivation_hook( __FILE__, 'iaml_deactivate' );
+
+function iaml_delete() {
+    // Remove option
+    
+    delete_option( 'iaml_activate' );
+
+    // Again, we don't touch uploaded media because (whilst it will no longer work when the plugin is
+    // deactivated/deleted) it will work again if we leave it and the plugin is re-installed, and
+    // the user may not be expecting their media library to disapear!
+}
+register_uninstall_hook( __FILE__, 'iaml_delete' );
+
+// END HOUSE-KEEPING //
+
 add_filter( 'wp_get_attachment_url', 'iaml_getMediaURLFile' );
+
 function iaml_getMediaURLFile( $url ) {
     $prefix = get_option( 'iaml_prefix' );
     $directory = wp_upload_dir();
