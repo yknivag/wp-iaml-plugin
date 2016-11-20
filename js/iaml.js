@@ -71,15 +71,4 @@ jQuery( document ).ready( function( $ )
 
     }); // end of button
 
-
-    /*
-     * Define jquery tooltips function
-     * */
-    var tooltips = $( '[title]' ).tooltip({
-        position: {
-            my: 'left top',
-            at: 'right+5 top-5'
-        }
-    }); // end of tooltips
-
 }); // end of jQuery

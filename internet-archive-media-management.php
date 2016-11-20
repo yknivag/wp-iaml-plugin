@@ -75,12 +75,14 @@ $mappingFolder = get_option( 'iaml_prefix' );
             <p>Please Note: This currently only works for jpg, png, gif and mp3 files reliably.  All other file types are added as generic attachments with no mime type or meta-data, future versions will add more supported file types.</p>
             <p>To find the &quot;File Name&quot; go to the Internet Archive and browse to the item you wish to link to, click to view all files attached to the item and then copy the link from the exact file you wish to link to. Paste in the box below all of that link apart from the prefix.</p>
             <p><label for='mappingFileName'>File Name: </label><br>
-                <?php echo $mappingFolder ?>/<input type='text' name='mappingFileName' title='Complete the URL (eg: item/file.ext)' size='40' id='mappingFileName'><br>
-            <label for='mappingFileDescription'>File Description: </label>
-            <input type='text' name='mappingFileDescription' title='eg: file description' size='80' id='mappingFileDescription'><br>
+                <?php echo $mappingFolder ?>/<input type='text' name='mappingFileName' title='Complete the URL (eg: item/file.ext)' size='40' id='mappingFileName'><br />
+                Complete the URL (eg: item/file.ext)</p>
+            <p><label for='mappingFileDescription'>File Description: </label>
+            <input type='text' name='mappingFileDescription' title='eg: file description' size='80' id='mappingFileDescription'><br />
+            eg: file description</p>
             <?php $mappingFileNonce = wp_create_nonce( 'mapping-file-nonce' ); ?>
             <input type='hidden' name='mapping-file-nonce' id='mapping-file-nonce' value='<?php echo $mappingFileNonce; ?>'>
-            <button type='submit' id='btnSaveMappingFile'><?php _e( 'Save' )?>
+            <p><button type='submit' id='btnSaveMappingFile'><?php _e( 'Save' )?>
                 <img src='<?php echo $currentPath ?>images/preloader-flat.gif' id='imgLoadingButton' style='display: none;'>
             </button></p>
         </form>
@@ -90,10 +92,11 @@ $mappingFolder = get_option( 'iaml_prefix' );
     <div id='updateURLprefix'>
         <form id='frmMappingFolder' name='frmMappingFolder'>
             <p><label for='mappingFolder'>Internet Archive URL base: </label>
-                <input type='text' id='mappingFolder' name='mappingFolder' value='<?php echo $mappingFolder ?>' title='eg: https://archive.org/download' size='40'> (do not include a trailing slash)<br>
+                <input type='text' id='mappingFolder' name='mappingFolder' value='<?php echo $mappingFolder ?>' title='eg: https://archive.org/download' size='40'> (do not include a trailing slash)<br />
+                eg: https://archive.org/download</p>
             <?php $mappingFolderNonce = wp_create_nonce( 'mapping-folder-nonce' );?>
                 <input type='hidden' name='mapping-folder-nonce' id='mapping-folder-nonce' value='<?php echo $mappingFolderNonce ?>' ><br>
-            <button id='btnSaveMappingFolder'><?php _e( 'Save' ) ?>
+            <p><button id='btnSaveMappingFolder'><?php _e( 'Save' ) ?>
                 <img src='<?php echo $currentPath ?>images/preloader-flat.gif' id='imgFolderButton' style='display: none;'>
             </button></p>
         </form>
