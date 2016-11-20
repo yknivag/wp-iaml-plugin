@@ -36,12 +36,7 @@ Define Tabs
             <li>[FUTURE] More types to be added in due-course.</li>
         </ul>
         
-        <h5>Features:</h5>Features:
-* Mapping file(s) from Internet Archive into WordPress Media Library.
-* Determination of MIME type from file extension (for images and mp3 only).
-* Real meta-data added for JPG/PNG/GIF files.
-* [FUTURE (v1.1+ as above)] Addition of real meta-data to Wordpress for file where available, or sensible generic meta-data where not.
-* [FUTURE (v1.2+ as above)] Option to manually edit the meta-data.
+        <h5>Features:</h5>
         <ul>
             <li>Mapping file(s) from Internet Archive into WordPress Media Library.</li>
             <li> Determination of MIME type from file extension (for images and mp3 only).</li>
