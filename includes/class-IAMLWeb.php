@@ -147,7 +147,7 @@ class IAMLWeb
             $attach_id = wp_insert_attachment( $attachment, $filePath, 0 );
 
             if( wp_update_attachment_metadata( $attach_id, $metadata ) ) {
-                return '<div class="updated"><p>File {$fileName} has been saved successfully.</p></div>';
+                return "<div class='updated'><p>File {$fileName} has been saved successfully.</p></div>";
             }
         //}
         //else {

@@ -40,6 +40,7 @@ How it works:
 2. Set up IA prefix in Admin >> Media >> Internet Archive Media Library >> URL Prefix.
 3. Add file name in Wordpress Admin >> Media >> Internet Archive Media Library >> Map File.
 4. Go to Wordpress Admin >> Media >> Library. Now you can see your Internet Archive file in preview.
+5. Once added you can edit meta-data and/or delete media from the Media Library in the normal way.
 
 == Installation ==
 

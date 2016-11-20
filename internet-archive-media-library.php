@@ -35,9 +35,9 @@ require_once( 'includes/class-IAMLWeb.php' );
 
 function iaml_activate() {
     $defaultPrefix = 'https://archive.org/download';
-    update_option( 'iaml_activate', $defaultPrefix );
+    add_option( 'iaml_prefix', $defaultPrefix );
 }
-register_activation_hook( __FILE__, 'iaml_install' );
+register_activation_hook( __FILE__, 'iaml_activate' );
 
 function iaml_deactivate() {
     // There is nothing to do here, the option is removed at plugin-delete as per
@@ -52,7 +52,7 @@ register_deactivation_hook( __FILE__, 'iaml_deactivate' );
 function iaml_delete() {
     // Remove option
     
-    delete_option( 'iaml_activate' );
+    delete_option( 'iaml_prefix' );
 
     // Again, we don't touch uploaded media because (whilst it will no longer work when the plugin is
     // deactivated/deleted) it will work again if we leave it and the plugin is re-installed, and
@@ -91,10 +91,11 @@ function iaml_media_actions() {
     if( ! is_admin() ) {
         wp_die( 'You are not authorised to view this page.' );
     } else {
+        //add_media_page( $page_title, $menu_title, $capability, $menu_slug, $function);
         add_media_page(
             'Internet Archive Media Library',
             'Internet Archive Media Library',
-            1,
+            'upload_files',
             'internet-archive-media-library-management',
             'iaml_media'
         );

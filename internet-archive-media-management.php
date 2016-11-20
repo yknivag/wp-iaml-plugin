@@ -56,6 +56,7 @@ $mappingFolder = get_option( 'iaml_prefix' );
             <li>Set up IA prefix in Admin >> Media >> Internet Archive Media Library >> URL Prefix.</li>
             <li>Add file name in Wordpress Admin >> Media >> Internet Archive Media Library >> Map File.</li>
             <li>Go to Wordpress Admin >> Media >> Library. Now you can see your Internet Archive file in preview.</li>
+            <li>Once added you can edit meta-data and/or delete media from the Media Library in the normal way.</li>
         </ol>
         
         <h5>Installation</h5>
@@ -71,7 +72,7 @@ $mappingFolder = get_option( 'iaml_prefix' );
     <div id='map-file'>
         
         <form id='frmMappingFile' name='frmMappingFile'>
-            <p>Plesae Note: This currently only works for jpg, png, gif and mp3 files reliably.  All other file types are added as generic attachments with no mime type or meta-data, future versions will add more supported file types.</p>
+            <p>Please Note: This currently only works for jpg, png, gif and mp3 files reliably.  All other file types are added as generic attachments with no mime type or meta-data, future versions will add more supported file types.</p>
             <p>To find the &quot;File Name&quot; go to the Internet Archive and browse to the item you wish to link to, click to view all files attached to the item and then copy the link from the exact file you wish to link to. Paste in the box below all of that link apart from the prefix.</p>
             <p><label for='mappingFileName'>File Name: </label><br>
                 <?php echo $mappingFolder ?>/<input type='text' name='mappingFileName' title='Complete the URL (eg: item/file.ext)' size='40' id='mappingFileName'><br>
