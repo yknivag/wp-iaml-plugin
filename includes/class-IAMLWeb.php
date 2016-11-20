@@ -4,29 +4,29 @@ class IAMLWeb
     /*
     * Verify nonce for security
     * */
-    public function iaml_validateNonce($nonce, $field)
+    public function iaml_validateNonce( $nonce, $field )
     {
-        if (!wp_verify_nonce($nonce, $field)) 
-            die('<div class="error"><p>Security check failed!</p></div>');
+        if( ! wp_verify_nonce( $nonce, $field ) ) 
+            die( '<div class="error"><p>Security check failed!</p></div>' );
     }
 
 
     /*
     * Save URL Prefix
     * */
-    public function iaml_saveMappingFolder($mappingFolder, $nonce, $nonceField)
+    public function iaml_saveMappingFolder( $mappingFolder, $nonce, $nonceField )
     {
         
         $this->iaml_validateNonce($nonce, $nonceField);
         $url = $mappingFolder . '/';
         
-        if(empty($mappingFolder)) {
+        if( empty( $mappingFolder ) ) {
             return '<div class="error"><p>Internet Archive URL prefix is required.</p></div>';
         }
 
-        $mappingFolder = sanitize_text_field($mappingFolder);
+        $mappingFolder = sanitize_text_field( $mappingFolder );
         
-        if(update_option('iaml_prefix', $mappingFolder))
+        if( update_option( 'iaml_prefix', $mappingFolder ) )
             return '<div class="updated"><p>Internet Archive URL prefix has been saved successfully.</p></div>';
     }
     
@@ -36,22 +36,24 @@ class IAMLWeb
     function iaml_saveMappingFile($fileName, $folder, $description, $nonce, $nonceField)
     {
         $this->iaml_validateNonce($nonce, $nonceField);
+        $fileName = sanitize_text_field( $fileName );
+        $description = sanitize_text_field( $description );
         
-        // Verify Google Drive mapping folder
-        if(empty($folder))
+        // Verify Internet Archive URL Prefix
+        if( empty( $folder ) )
             return '<div class="error"><p>Please set up Internet Archive URL prefix before mapping a file.</p></div>';
         
         // Verify file name
-        if(empty($fileName))
+        if( empty( $fileName ) )
             return '<div class="error"><p>File name is required.</p></div>';
         
         $filePath = 'IAML-Mapping/' . $fileName;
         $fullFile = $prefix . '/' .$fileName;
-        $fileExt  = pathinfo(basename($fileName), PATHINFO_EXTENSION);
-        $fileType = wp_check_filetype(basename($fileName), null);
+        $fileExt  = pathinfo( basename( $fileName ), PATHINFO_EXTENSION );
+        $fileType = wp_check_filetype( basename( $fileName ), null );
         $fileMime = $fileType['type'];
         
-        switch ($fileExt) {
+        switch( $fileExt ) {
             case 'jpg':
             case 'JPG':
             case 'jpeg':
@@ -60,7 +62,7 @@ class IAMLWeb
             case 'PNG':
             case 'gif':
             case 'GIF':
-                $imageSize   = getimagesize($fullFile);
+                $imageSize   = getimagesize( $fullFile );
                 $imageWidth  = $imageSize[0];
                 $imageHeight = $imageSize[1];
                 //$fileMime    = $imageSize["mime"];
@@ -79,7 +81,7 @@ class IAMLWeb
                     'shutter_speed'     => 0,
                     'title'             => $description,
                     'orientation'       => 0,
-                    'keywords'          => $keywords
+                    'keywords'          => $keywords,
                 );
                 
                 $metadata = array(
@@ -88,7 +90,7 @@ class IAMLWeb
                     'width'      => $imageWidth,
                     'height'     => $imageHeight,
                     'file'       => $filePath,
-                    'IAML'       => TRUE
+                    'IAML'       => TRUE,
                 );
                 
                 break;
@@ -119,32 +121,32 @@ class IAMLWeb
                     'year'              => '',
                     'artist'            => '',
                     'album'             => '',
-                    'IAML'              => TRUE
+                    'IAML'              => TRUE,
                 );
                 
                 break;
                 
             default:
                 //$fileMime = "text/plain";
-                $metadata = array('IAML'=>TRUE);
+                $metadata = array( 'IAML'=>TRUE );
                 break;
         }
 
         //Check removed as takes too long for large files, will re-write with a curl routine.
-        //if (@fclose(@fopen($fullFile,"r")))
+        //if( @fclose( @fopen( $fullFile,"r" ) ) )
         //{
         
             $attachment = array(
                 'post_mime_type' => $fileMime,
                 'guid'           => $filePath,
-                'post_title'     => preg_replace('/\.[^.]+$/', '', basename($fileName)),
+                'post_title'     => preg_replace( '/\.[^.]+$/', '', basename( $fileName ) ),
                 'post_content'   => $description,
-                'post_status'    => 'inherit'
+                'post_status'    => 'inherit',
             );
 
-            $attach_id = wp_insert_attachment($attachment, $filePath, 0);
+            $attach_id = wp_insert_attachment( $attachment, $filePath, 0 );
 
-            if(wp_update_attachment_metadata($attach_id, $metadata)) {
+            if( wp_update_attachment_metadata( $attach_id, $metadata ) ) {
                 return '<div class="updated"><p>File {$fileName} has been saved successfully.</p></div>';
             }
         //}

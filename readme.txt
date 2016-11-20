@@ -1,6 +1,6 @@
 === Internet Archive Media Library ===
 Contributors: Gavin Smalley
-Donate link: http://www.gavinsmalley.co.uk/
+Donate link: https://github.com/yknivag/wp-iaml-plugin
 Tags: internet archive, archive.org, internet archive mapping, archive.org mapping, internet archive media library, archive.org media library
 Requires at least: 3.5
 Tested up to: 4.6
