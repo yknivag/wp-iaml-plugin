@@ -66,7 +66,7 @@ register_uninstall_hook( __FILE__, 'iaml_delete' );
 add_filter( 'wp_get_attachment_url', 'iaml_getMediaURLFile' );
 
 function iaml_getMediaURLFile( $url ) {
-    $prefix = get_option( 'iaml_prefix' );
+    $prefix = esc_url( get_option( 'iaml_prefix' ) );
     $directory = wp_upload_dir();
     
     if( strpos( $url, 'IAML-Mapping/' ) )
