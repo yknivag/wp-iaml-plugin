@@ -1,4 +1,7 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 $currentPath = plugin_dir_url( __FILE__ );
 $mappingFolder = get_option( 'iaml_prefix' );
 ?>
