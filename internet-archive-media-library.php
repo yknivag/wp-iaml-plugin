@@ -115,7 +115,7 @@ add_action( 'admin_menu', 'iaml_media_actions' );
 function iaml_ajax_post() {
     if( isset( $_POST['mappingFolderNonce'] ) && wp_verify_nonce( $_POST['mappingFolderNonce'], 'mapping-folder-nonce' ) ) {
 
-		$mappingFolder = sanitize_text_field( $mappingFolder );
+		$mappingFolder = sanitize_text_field( $_POST['mappingFolder'] );
 
         $IAMLWebService = new IAMLWeb();
         $message = $IAMLWebService->iaml_saveMappingFolder( $mappingFolder );
@@ -124,8 +124,8 @@ function iaml_ajax_post() {
     }
     elseif( isset( $_POST['mappingFileNonce'] ) && wp_verify_nonce( $_POST['mappingFileNonce'], 'mappingFileNonce' ) ) {
 
-		$fileName = sanitize_text_field( $fileName );
-        $description = sanitize_text_field( $description );
+	$fileName = sanitize_text_field( $_POST['mappingFileName'] );
+        $description = sanitize_text_field( $_POST['mappingFileDescription'] );
 
         $IAMLWebService = new IAMLWeb();
         $folder = get_option( 'iaml_prefix' );
