@@ -113,20 +113,29 @@ add_action( 'admin_menu', 'iaml_media_actions' );
 
 
 function iaml_ajax_post() {
-    if( isset( $_POST['mappingFolderNonce'] ) ) {
+    if( isset( $_POST['mappingFolderNonce'] ) && wp_verify_nonce( $_POST['mappingFolderNonce'], 'mapping-folder-nonce' ) ) {
+
+		$mappingFolder = sanitize_text_field( $mappingFolder );
+
         $IAMLWebService = new IAMLWeb();
-        $message = $IAMLWebService->iaml_saveMappingFolder( $_POST['mappingFolder'], 
-            $_POST['mappingFolderNonce'], 'mapping-folder-nonce' );
+        $message = $IAMLWebService->iaml_saveMappingFolder( $mappingFolder );
+
         echo $message;
     }
+    elseif( isset( $_POST['mappingFileNonce'] ) && wp_verify_nonce( $_POST['mappingFileNonce'], 'mappingFileNonce' ) ) {
 
-    if( isset( $_POST['mappingFileNonce'] ) ) {
+		$fileName = sanitize_text_field( $fileName );
+        $description = sanitize_text_field( $description );
+
         $IAMLWebService = new IAMLWeb();
         $folder = get_option( 'iaml_prefix' );
-        $message = $IAMLWebService->iaml_saveMappingFile( $_POST['mappingFileName'], $folder, $_POST['mappingFileDescription'],
-            $_POST['mappingFileNonce'], 'mapping-file-nonce' );
+        $message = $IAMLWebService->iaml_saveMappingFile( $fileName, $folder, $description);
+
         echo $message;
     }
+	else {
+		die( '<div class="error"><p>Security check failed!</p></div>' );
+	}
 
     die();
 }
