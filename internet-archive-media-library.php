@@ -122,7 +122,7 @@ function iaml_ajax_post() {
 
         echo $message;
     }
-    elseif( isset( $_POST['mappingFileNonce'] ) && wp_verify_nonce( $_POST['mappingFileNonce'], 'mappingFileNonce' ) ) {
+    elseif( isset( $_POST['mappingFileNonce'] ) && wp_verify_nonce( $_POST['mappingFileNonce'], 'mapping-file-nonce' ) ) {
 
 	$fileName = sanitize_text_field( $_POST['mappingFileName'] );
         $description = sanitize_text_field( $_POST['mappingFileDescription'] );
