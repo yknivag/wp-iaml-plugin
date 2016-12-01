@@ -28,6 +28,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 require_once( 'includes/class-IAMLWeb.php' );
 
@@ -65,7 +66,7 @@ register_uninstall_hook( __FILE__, 'iaml_delete' );
 add_filter( 'wp_get_attachment_url', 'iaml_getMediaURLFile' );
 
 function iaml_getMediaURLFile( $url ) {
-    $prefix = get_option( 'iaml_prefix' );
+    $prefix = esc_url( get_option( 'iaml_prefix' ) );
     $directory = wp_upload_dir();
     
     if( strpos( $url, 'IAML-Mapping/' ) )
@@ -112,20 +113,29 @@ add_action( 'admin_menu', 'iaml_media_actions' );
 
 
 function iaml_ajax_post() {
-    if( isset( $_POST['mappingFolderNonce'] ) ) {
+    if( isset( $_POST['mappingFolderNonce'] ) && wp_verify_nonce( $_POST['mappingFolderNonce'], 'mapping-folder-nonce' ) ) {
+
+		$mappingFolder = sanitize_text_field( $_POST['mappingFolder'] );
+
         $IAMLWebService = new IAMLWeb();
-        $message = $IAMLWebService->iaml_saveMappingFolder( $_POST['mappingFolder'], 
-            $_POST['mappingFolderNonce'], 'mapping-folder-nonce' );
+        $message = $IAMLWebService->iaml_saveMappingFolder( $mappingFolder );
+
         echo $message;
     }
+    elseif( isset( $_POST['mappingFileNonce'] ) && wp_verify_nonce( $_POST['mappingFileNonce'], 'mapping-file-nonce' ) ) {
 
-    if( isset( $_POST['mappingFileNonce'] ) ) {
+	$fileName = sanitize_text_field( $_POST['mappingFileName'] );
+        $description = sanitize_text_field( $_POST['mappingFileDescription'] );
+
         $IAMLWebService = new IAMLWeb();
         $folder = get_option( 'iaml_prefix' );
-        $message = $IAMLWebService->iaml_saveMappingFile( $_POST['mappingFileName'], $folder, $_POST['mappingFileDescription'],
-            $_POST['mappingFileNonce'], 'mapping-file-nonce' );
+        $message = $IAMLWebService->iaml_saveMappingFile( $fileName, $folder, $description);
+
         echo $message;
     }
+	else {
+		die( '<div class="error"><p>Security check failed!</p></div>' );
+	}
 
     die();
 }

@@ -1,6 +1,9 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 $currentPath = plugin_dir_url( __FILE__ );
-$mappingFolder = get_option( 'iaml_prefix' );
+$mappingFolder = esc_url( get_option( 'iaml_prefix' ) );
 ?>
 
 <div id='info' style='display: none'></div>
@@ -38,7 +41,7 @@ $mappingFolder = get_option( 'iaml_prefix' );
         <h5>Features:</h5>
         <ul>
             <li>Mapping file(s) from Internet Archive into WordPress Media Library.</li>
-            <li> Determination of MIME type from file extension (for images and mp3 only).</li>
+            <li>Determination of MIME type from file extension (for images and mp3 only).</li>
             <li>Real meta-data added for JPG/PNG/GIF files.</li>
             <li>[FUTURE (v1.1+ as above)] Addition of real meta-data to Wordpress for file where available, or sensible generic meta-data where not.</li>
             <li>[FUTURE (v1.2+ as above)] Option to manually edit the meta-data.</li>

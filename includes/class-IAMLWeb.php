@@ -1,23 +1,13 @@
 <?php
-class IAMLWeb
-{
-    /*
-    * Verify nonce for security
-    * */
-    public function iaml_validateNonce( $nonce, $field )
-    {
-        if( ! wp_verify_nonce( $nonce, $field ) ) 
-            die( '<div class="error"><p>Security check failed!</p></div>' );
-    }
 
+if ( ! defined( 'ABSPATH' ) ) exit;
+
+class IAMLWeb {
 
     /*
     * Save URL Prefix
     * */
-    public function iaml_saveMappingFolder( $mappingFolder, $nonce, $nonceField )
-    {
-        
-        $this->iaml_validateNonce($nonce, $nonceField);
+    public function iaml_saveMappingFolder( $mappingFolder) {
         $url = $mappingFolder . '/';
         
         if( empty( $mappingFolder ) ) {
@@ -33,9 +23,7 @@ class IAMLWeb
     /*
     * Save Mapping File
     * */
-    function iaml_saveMappingFile($fileName, $folder, $description, $nonce, $nonceField)
-    {
-        $this->iaml_validateNonce($nonce, $nonceField);
+    function iaml_saveMappingFile($fileName, $folder, $description) {
         $fileName = sanitize_text_field( $fileName );
         $description = sanitize_text_field( $description );
         
@@ -156,4 +144,3 @@ class IAMLWeb
     }
     
 } // end of class
-
