@@ -3,7 +3,7 @@ Contributors: Gavin Smalley
 Donate link: https://github.com/yknivag/wp-iaml-plugin
 Tags: internet archive, archive.org, internet archive mapping, archive.org mapping, internet archive media library, archive.org media library
 Requires at least: 3.5
-Tested up to: 4.6
+Tested up to: 4.7.1
 Stable tag: 1.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
