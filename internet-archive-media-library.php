@@ -4,7 +4,7 @@
     Plugin URI: https://github.com/yknivag/wp-iaml-plugin
     Description: Mapping file from Internet Archive (archive.org) into Wordpress Media. [Based on Google Drive Media Library by Felix Wei]
     Author: Gavin Smalley
-    Version: 1.0.1
+    Version: 1.0.2
     Author URI: https://github.com/yknivag/
     License: GNU General Public License v3.0 or later
     License URI: http://www.gnu.org/licenses/gpl-3.0.html

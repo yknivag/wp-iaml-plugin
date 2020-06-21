@@ -1,9 +1,10 @@
 === Internet Archive Media Library ===
 Contributors: yknivag
+Donate link: https://www.paypal.com/gb/fundraiser/charity/3140872
 Tags: internet archive, archive.org, internet archive mapping, archive.org mapping, internet archive media library, archive.org media library
 Requires at least: 3.5
 Tested up to: 5.4
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -48,7 +49,10 @@ How it works:
 == Changelog ==
 
 = 1.0.0 =
-* Initial release, it's a "lite" version. Versions 1.x will come soon with automatic meta-data detection.
+* Initial release, it's a "lite" version. Versions 1.1 will come in the future with automatic meta-data detection.
+
+= 1.0.2 =
+* Updated latest tested WP version.
 
 == ROADMAP ==
 
